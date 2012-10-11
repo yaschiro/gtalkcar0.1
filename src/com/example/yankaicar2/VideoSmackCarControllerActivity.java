@@ -648,5 +648,16 @@ public class VideoSmackCarControllerActivity extends Activity {
 			initFindsAndListeners();
 		}
 	}
+	
+//	@Override
+//	public void onPreviewFrame(byte[] data, Camera camera) {
+//
+//		frameData = data.clone();
+//
+//		// get the prew frame here,the data of default is YUV420_SP
+//
+//		// you should change YUV420_SP to YUV420_P
+//
+//	}
 
 } 
