@@ -1,0 +1,5 @@
+<resources>
+    <string name="hello">Hello World, AndroidBluetoothCarServerActivity!</string>
+    <string name="app_name">AndroidBluetoothCarServer</string>
+</resources>
+
