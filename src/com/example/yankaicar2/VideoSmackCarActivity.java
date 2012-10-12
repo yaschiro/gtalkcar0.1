@@ -29,7 +29,6 @@ import org.jivesoftware.smack.util.StringUtils;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;

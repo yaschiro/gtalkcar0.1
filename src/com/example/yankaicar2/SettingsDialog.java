@@ -2,7 +2,6 @@
 package com.example.yankaicar2;
  
 
-import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
@@ -57,7 +56,12 @@ public class SettingsDialog extends Dialog implements android.view.View.OnClickL
             xmppClient.setConnection(null);
             throw new IllegalStateException(e);
 		}//Á¬½Ó        
-
+    catch (Exception eb){
+    	
+    	Log.e("XMPPClient", "[SettingsDialog] Failed to log in as " + username, eb);
+        xmppClient.setConnection(null);
+        throw new IllegalStateException(eb);
+    }
         try {
             connection.login(username, password);
             // Set the status to available
@@ -67,6 +71,10 @@ public class SettingsDialog extends Dialog implements android.view.View.OnClickL
             xmppClient.serverName=server;
         } catch (XMPPException ex) {
             Log.e("XMPPClient", "[SettingsDialog] Failed to log in as " + username, ex);
+            xmppClient.setConnection(null);
+        }catch (Exception eb){
+        	
+        	Log.e("XMPPClient", "[SettingsDialog] Failed to log in as " + username, eb);
             xmppClient.setConnection(null);
         }
         dismiss();
