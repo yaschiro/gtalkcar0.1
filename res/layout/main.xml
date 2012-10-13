@@ -36,8 +36,8 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView1"
+    <SurfaceView
+        android:id="@+id/surfaceView1"
         android:layout_width="fill_parent"
         android:layout_height="216dp"
         />

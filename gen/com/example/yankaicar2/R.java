@@ -15,9 +15,9 @@ public final class R {
         public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
-        public static final int btn_capture=0x7f060020;
-        public static final int btn_shotcut=0x7f060021;
-        public static final int button1=0x7f060028;
+        public static final int btn_capture=0x7f06001f;
+        public static final int btn_shotcut=0x7f060020;
+        public static final int button1=0x7f060027;
         public static final int buttonB=0x7f060011;
         public static final int buttonEyeOff=0x7f060015;
         public static final int buttonEyeOn=0x7f060014;
@@ -31,8 +31,7 @@ public final class R {
         public static final int buttonRB=0x7f060012;
         public static final int buttonRF=0x7f06000a;
         public static final int editTextCycle=0x7f060013;
-        public static final int host=0x7f060022;
-        public static final int imageView1=0x7f060002;
+        public static final int host=0x7f060021;
         public static final int linearLayout1=0x7f06001d;
         public static final int linearLayout2=0x7f06001e;
         public static final int linearLayout3=0x7f060006;
@@ -40,9 +39,9 @@ public final class R {
         public static final int linearLayout5=0x7f06000b;
         public static final int linearLayout6=0x7f06000f;
         public static final int listMessages=0x7f060003;
-        public static final int ok=0x7f060027;
-        public static final int password=0x7f060026;
-        public static final int port=0x7f060023;
+        public static final int ok=0x7f060026;
+        public static final int password=0x7f060025;
+        public static final int port=0x7f060022;
         public static final int radio0=0x7f060018;
         public static final int radio1=0x7f060019;
         public static final int radio2=0x7f06001a;
@@ -51,11 +50,11 @@ public final class R {
         public static final int recipient=0x7f060001;
         public static final int send=0x7f060005;
         public static final int sendText=0x7f060004;
-        public static final int service=0x7f060024;
+        public static final int service=0x7f060023;
         public static final int setup=0x7f060000;
-        public static final int surfaceView1=0x7f06001f;
+        public static final int surfaceView1=0x7f060002;
         public static final int textView1=0x7f06001c;
-        public static final int userid=0x7f060025;
+        public static final int userid=0x7f060024;
     }
     public static final class layout {
         public static final int main=0x7f030000;
