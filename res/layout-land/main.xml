@@ -25,7 +25,7 @@
             android:minWidth="250dp"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:text="yaschiro2012@gmail.com"
+            android:text="yaschiro2010@gmail.com"
             android:textSize="16sp" />
 
         <TextView

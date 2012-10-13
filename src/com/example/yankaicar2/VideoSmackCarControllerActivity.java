@@ -29,6 +29,7 @@ import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.util.Base64;
 import org.jivesoftware.smack.util.StringUtils;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -36,6 +37,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
@@ -85,8 +87,26 @@ public class VideoSmackCarControllerActivity extends Activity {
 	private int moveContinueTime = 100;
 	private int eyeCycleTime = 1000;
 
+	@TargetApi(11)
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		
+		 
+	         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+	                 .detectDiskReads()
+	                 .detectDiskWrites()
+	                 .detectNetwork()   // or .detectAll() for all detectable problems
+	                 .penaltyLog()
+	                 .build());
+	         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+	                 .detectLeakedSqlLiteObjects()
+	                 .detectLeakedClosableObjects()
+	                 .penaltyLog()
+	                 .penaltyDeath()
+	                 .build());
+	      
+		
+		
 		super.onCreate(savedInstanceState);
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE); // »•µÙ±ÍÃ‚¿∏
 		setContentView(R.layout.main);

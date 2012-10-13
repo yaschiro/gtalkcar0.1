@@ -6,6 +6,7 @@ import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 
+
 import android.app.Dialog;
 import android.util.Log;
 import android.view.View;
