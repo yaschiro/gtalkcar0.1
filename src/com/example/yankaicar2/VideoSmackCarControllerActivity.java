@@ -55,7 +55,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
  
 public class VideoSmackCarControllerActivity extends Activity implements
-SurfaceHolder.Callback, PreviewCallback, Runnable  {
+SurfaceHolder.Callback, PreviewCallback  {
 	public static final String BroadcastName = "android.lynx.car.intent.INTENT_CAR_CONTROL"; // 蓝牙车控制广播地址
 	private static final String TAG = "VideoSmackCarController";
 	private static final boolean D = true; // Debug模式开启标识
@@ -113,7 +113,7 @@ SurfaceHolder.Callback, PreviewCallback, Runnable  {
 	         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
 	                 .detectDiskReads()
 	                 .detectDiskWrites()
-	                 .detectNetwork()   // or .detectAll() for all detectable problems
+	                 .detectNetwork().detectAll()   // or .detectAll() for all detectable problems
 	                 .penaltyLog()
 	                 .build());
 	         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
@@ -151,7 +151,7 @@ SurfaceHolder.Callback, PreviewCallback, Runnable  {
 
 		mSurfaceHolder = mSurfaceView01.getHolder();
 		mSurfaceHolder.addCallback(this);
-		//mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+		mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 	}
 	 
 	/**
@@ -217,24 +217,7 @@ SurfaceHolder.Callback, PreviewCallback, Runnable  {
 		return b;
 	}
 	
-	/**
-	 * 定时发送位置状态的守护进程动作
-	 */
-	@Override
-	public void run() {
-		while (ThreadFlag) {
-			
-			//每一个周期执行一次截图操作并发送模拟低帧率视频流
-			takeAShotCut();
-			
-			try {
-				Thread.sleep(cycleMiliseconds);
-			} catch (Exception ex) {
-				if (D)
-					Log.d(TAG, "睡眠死……这……不可能吧？……");
-			}
-		}
-	}
+
 	@Override
 	public void onPreviewFrame(byte[] data, Camera camera) {
 
@@ -249,25 +232,33 @@ SurfaceHolder.Callback, PreviewCallback, Runnable  {
 	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
-		if (bPreviewing) {
-			camera.stopPreview();
-		}
-		Camera.Parameters params = camera.getParameters();
-		// params.setPreviewSize(width, height);
-		camera.setParameters(params);
-		try {
-			camera.setPreviewDisplay(mSurfaceHolder);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		if (bPreviewing) {
+//			camera.stopPreview();
+//		}
+//		Camera.Parameters params = camera.getParameters();
+//		// params.setPreviewSize(width, height);
+//		camera.setParameters(params);
+//		try {
+//			camera.setPreviewDisplay(mSurfaceHolder);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		camera.startPreview();
+//		bPreviewing = true;
 		camera.startPreview();
-		bPreviewing = true;
+		
 	}
 
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
-		if (!bPreviewing) {
-			camera = Camera.open();
+//		if (!bPreviewing) {
+//			camera = Camera.open();
+//		}
+		try {
+			initCamera();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	@Override
@@ -301,7 +292,7 @@ SurfaceHolder.Callback, PreviewCallback, Runnable  {
 															// interface的对象作为参数
 		}else{
 			
-			//initCamera();
+			initCamera();
 			camera.takePicture(null, null, jpegCallback);// 调用PictureCallback
 			
 		}
@@ -841,27 +832,36 @@ SurfaceHolder.Callback, PreviewCallback, Runnable  {
 	}
 
  
-//	/**
-//	 * 直接调用setImageBitmap是无法正常显示的，经过查资料得知必须在一个独立的线程中才行
-//	 * 
-//	 * @author Lynx
-//	 * 
-//	 */
-//	private class setMapThread implements Runnable {
-//		public Bitmap mBitmap = null;
-//
-//		public void setB(Bitmap mBitmap) {
-//			this.mBitmap = mBitmap;
-//		}
-//
-//		// run方法会在UI线程中执行
-//		public void run() {
-//
-//			mImageView.setImageBitmap(mBitmap);
-//			if (D)
-//				Log.d(TAG, "+++ Jpeg Sitted +++");
-//		}
-//	}
+	/**
+	 * 直接调用setImageBitmap是无法正常显示的，经过查资料得知必须在一个独立的线程中才行
+	 * 
+	 * @author Lynx
+	 * 
+	 */
+	private class setMapThread implements Runnable {
+	 
+
+	 
+
+		/**
+		 * 定时发送位置状态的守护进程动作
+		 */
+		@Override
+		public void run() {
+			while (ThreadFlag) {
+				
+				//每一个周期执行一次截图操作并发送模拟低帧率视频流
+				takeAShotCut();
+				
+				try {
+					Thread.sleep(cycleMiliseconds);
+				} catch (Exception ex) {
+					if (D)
+						Log.d(TAG, "睡眠死……这……不可能吧？……");
+				}
+			}
+		}
+	}
 
 	/**
 	 * 用于检测消息的钩子函数（这里用来检测并执行控制命令）
@@ -1140,7 +1140,7 @@ SurfaceHolder.Callback, PreviewCallback, Runnable  {
 	{
 		if(Guarder != null)  //确保只有一个守护进程可以被创建
 			return;
-		Guarder = new Thread(this);
+		Guarder = new Thread(new  setMapThread());
 		ThreadFlag = true;
 		Guarder.start();
 	}
